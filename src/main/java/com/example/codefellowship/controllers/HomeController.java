@@ -21,5 +21,12 @@ public class HomeController
     {
         return "registration";
     }
+
+    @GetMapping("/error")
+    public String getErrorPage()
+    {
+        return "error";
+    }
+
 }
 
