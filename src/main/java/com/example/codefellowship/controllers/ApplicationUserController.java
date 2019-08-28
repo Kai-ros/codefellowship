@@ -43,10 +43,14 @@ public class ApplicationUserController
     }
 
     @GetMapping("/users/{id}")
-    public String getIndividualUserPage(@PathVariable long id, Model model)
+    public String getIndividualUserPage(@PathVariable long id, Model model, Principal principal)
     {
+        ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         ApplicationUser individualUser = applicationUserRepository.findById(id).get();
         model.addAttribute("individualUser", individualUser);
+        model.addAttribute("userID", currentUser.getId());
+        model.addAttribute("username", currentUser.getUsername());
+
         return "individualUser";
     }
 
@@ -55,6 +59,7 @@ public class ApplicationUserController
     {
         ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         model.addAttribute("individualUser", currentUser);
+        model.addAttribute("userID", currentUser.getId());
         return "individualUser";
     }
 

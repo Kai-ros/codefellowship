@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div th:fragment="banner">
+        <a href="/"><h1>Dinosaurs!</h1></a>
+        <nav th:if="${username}">
+            <div class="bg-primary text-white"><h1>The Codefellowship!!</h1></div>
+                Hello, <span th:text="${username}"></span>!
+            <a href="logout">Log out</a>
+        </nav>
+    </div>
+</body>
+</html>
