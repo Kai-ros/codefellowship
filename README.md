@@ -56,7 +56,7 @@ I used a recursive approach to my methods to accomplish the feature tasks.
         * ``` PostController.java```
     * ```models```
         * ``` ApplicationUser.java```
-        * ``` ApplicationUserrepository.java```
+        * ``` ApplicationUserRepository.java```
         * ``` Post.java```
         * ``` PostRepository.java```
     * ```CodefellowshipApplication.java```
@@ -66,10 +66,12 @@ I used a recursive approach to my methods to accomplish the feature tasks.
             * ```banner.html```
             * ```post.html```
         * ```error.html```
+        * ```feed.html```
         * ```individualUser.html```
         * ```login.html```
         * ```registration.html```
         * ```root.html```
+        * ```users.html```
         
 ## Collaborators: 
 * Marisha Hoza, Kevin Couture, Padmapriya Ganapathi
