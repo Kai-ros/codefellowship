@@ -23,12 +23,6 @@ public class PostController
     @Autowired
     PostRepository postRepository;
 
-//    @GetMapping("/users/post")
-//    public String getApplicationUserPost()
-//    {
-//        return "post";
-//    }
-
     // Assume that this new post belongs to the logged-in user
     @PostMapping("/users/post")
     public RedirectView createPost(String body, Principal principal)

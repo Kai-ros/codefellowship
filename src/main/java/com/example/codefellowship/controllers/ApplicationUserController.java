@@ -50,7 +50,6 @@ public class ApplicationUserController
         model.addAttribute("individualUser", individualUser);
         model.addAttribute("userID", currentUser.getId());
         model.addAttribute("username", currentUser.getUsername());
-
         return "individualUser";
     }
 
@@ -60,6 +59,7 @@ public class ApplicationUserController
         ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         model.addAttribute("individualUser", currentUser);
         model.addAttribute("userID", currentUser.getId());
+        model.addAttribute("username", currentUser.getUsername());
         return "individualUser";
     }
 
@@ -67,6 +67,34 @@ public class ApplicationUserController
     public String getLoginPage()
     {
         return "login";
+    }
+
+    @PostMapping("/follow/{id}")
+    public RedirectView followAUser(@PathVariable long id, Principal principal)
+    {
+        ApplicationUser currentUser = applicationUserRepository.findByUsername(principal.getName());
+        ApplicationUser individualUser = applicationUserRepository.findById(id).get();
+        currentUser.addFollowers(individualUser);
+        applicationUserRepository.save(currentUser);
+        return new RedirectView("/users/" + id);
+    }
+
+    @GetMapping("/feed")
+    public String getUsersThatIFollow(Principal principal, Model model)
+    {
+        ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        model.addAttribute("currentUser", applicationUserRepository.findByUsername(principal.getName()));
+        model.addAttribute("username", currentUser.getUsername());
+        return "feed";
+    }
+
+    @GetMapping("/users")
+    public String displayUsers(Principal principal, Model model) {
+        ApplicationUser currentUser = (ApplicationUser)((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        model.addAttribute("currentUser", applicationUserRepository.findByUsername(principal.getName()));
+        model.addAttribute("allUsers", applicationUserRepository.findAll());
+        model.addAttribute("username", currentUser.getUsername());
+        return "users";
     }
 }
 
