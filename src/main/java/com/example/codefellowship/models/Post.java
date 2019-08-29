@@ -1,9 +1,11 @@
 package com.example.codefellowship.models;
 
 import javafx.geometry.Pos;
+import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.Set;
 
 @Entity
 public class Post

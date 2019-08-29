@@ -23,6 +23,18 @@ public class ApplicationUser implements UserDetails
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "poster")
     public List<Post> posts;
 
+    @ManyToMany
+    @JoinTable
+            (
+                    name = "followers",
+                    joinColumns = { @JoinColumn(name = "primaryUser") },
+                    inverseJoinColumns = { @JoinColumn(name = "followedUser") }
+            )
+    public Set<ApplicationUser> usersThatIFollow;
+
+    @ManyToMany(mappedBy = "usersThatIFollow")
+    public Set<ApplicationUser> usersThatFollowMe;
+
     public ApplicationUser() {}
 
     public ApplicationUser(String username, String password, String fullName, Date dateOfBirth, String bio)
@@ -43,7 +55,6 @@ public class ApplicationUser implements UserDetails
         return fullName;
     }
 
-
     public List<Post> getPosts()
     {
         return this.posts;
@@ -57,6 +68,16 @@ public class ApplicationUser implements UserDetails
     public void addPosts(Post post)
     {
         this.posts.add(post);
+    }
+
+    public Set<ApplicationUser> getUsersThatIFollow()
+    {
+        return this.usersThatIFollow;
+    }
+
+    public void addFollowers(ApplicationUser followingUser)
+    {
+        usersThatIFollow.add(followingUser);
     }
 
     @Override
